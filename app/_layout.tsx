@@ -1,29 +1,27 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import {LogBox} from "react-native";
+// This is the root layout for the app. It wraps all pages in a common layout. 
+// Defines shared styles and components, like headers or footers.
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+LogBox.ignoreAllLogs(true); // Ignores all log messages, useful for development to avoid cluttering the console
+
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+
+    <>
+      <StatusBar style="light"/> {/* Sets the status bar style to light */}
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        {/*options are used to define shared styles or components for all screens in the stack*/}
+        <Stack.Screen 
+          name="(tabs)"
+          options={{
+            headerShown: false, // Hides the header for the tabs layout
+          }}
+        />
+        <Stack.Screen name="+not-found" options={{}}/>
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    </>
+    );
 }
