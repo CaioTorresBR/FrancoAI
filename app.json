@@ -4,7 +4,7 @@
     "slug": "FrancoAI",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/quebec-logo.png",
     "scheme": "francoai",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

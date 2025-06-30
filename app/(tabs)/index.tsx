@@ -1,10 +1,21 @@
 import { Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+
+// imports components
+import Button from '@/components/Button'
+import ImageViewer from "@/components/ImageViewer";
+
+const PlaceholderImage = require("../../assets/images/quebec-logo.png");
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
+      <View style={styles.imageContainer}>
+        <ImageViewer imgSource={PlaceholderImage}/>
+      </View>
+      <View style={styles.footerContainer}>
+        <Button theme="primary" label="Choose a photo"/>
+        <Button label="Use this photo"/>
+      </View> 
     </View>
   );
 }
@@ -17,12 +28,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    color: "rgb(255, 251, 222)",
+  imageContainer: {
+    flex: 1,
+    paddingTop: 28,
   },
-  button: {
-    color: "rgb(70, 130, 169)",
-    fontSize: 20,
-    textDecorationLine: "underline",
-  }
+  footerContainer: {
+    flex: 1/3,
+    alignItems: "center",
+  },
 });

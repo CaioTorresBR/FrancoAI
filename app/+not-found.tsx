@@ -8,7 +8,7 @@ export default function NotFoundScreen() {
     <View style={styles.container}>
       <Text style={styles.text}> Hi, Caio.</Text>
       {/* "/" brings us to the root of the app, which is the index.tsx file */}
-      <Link href={"/(tabs)/index"} style={styles.button}>
+      <Link href={"/"} style={styles.button}>
       Go back to Home Screen
       </Link>
     </View>
