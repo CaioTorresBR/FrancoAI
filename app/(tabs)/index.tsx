@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 // imports components
 import Button from '@/components/Button'
 import ImageViewer from "@/components/ImageViewer";
+import VoiceRecording from "@/components/VoiceRecording"
 
 const PlaceholderImage = require("../../assets/images/quebec-logo.png");
 
