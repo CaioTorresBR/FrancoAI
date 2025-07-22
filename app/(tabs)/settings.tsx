@@ -1,15 +1,18 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, } from "react-native";
+import { useState } from "react";
 import VoiceRecording from "@/components/VoiceRecording";
 import Correction from "@/components/Correction"
 
 const text_audio = "Je me appele Pedro y je suis 15 ans."
+
+
 
 export default function settingsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}> Settings screen</Text>
       <View style={styles.container}>
-        <Text>{Correction(text_audio)}</Text>
+        <VoiceRecording/>
       </View>
     </View>
   );

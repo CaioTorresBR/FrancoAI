@@ -35,11 +35,12 @@
         }
       ],
       [
-      "expo-audio",
+        "expo-audio",
         {
-        "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone to do voice recordings."
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone to do voice recordings."
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

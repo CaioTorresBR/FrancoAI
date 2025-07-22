@@ -16,7 +16,7 @@ export default function TabsLayout() {
             headerShadowVisible: false,
             headerTintColor: "white",
             tabBarStyle: {
-                backgroundColor: "rgb(255, 251, 222)",
+                backgroundColor: "white",
             },
         }}>
 

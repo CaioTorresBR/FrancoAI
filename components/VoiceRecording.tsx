@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
-import { useAudioRecorder, AudioModule, RecordingPresets } from "expo-audio";
+import { useAudioRecorder, AudioModule, RecordingPresets, useAudioPlayer, AudioStatus, RecordingStatus } from "expo-audio";
 import { icons, CirclePlay, AudioLines } from 'lucide-react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function VoiceRecording(){
     const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
     const [isRecording, setIsRecording] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [voiceRecordingUri, setVoiceRecordingUri] = useState(null);
 
-    // uses audioRecord record() function to start Recording
+    // Uses uses audioRecord record() function to start Recording
     // changes setIsRecording state to true
     const record = async() => {
         await audioRecorder.prepareToRecordAsync();
@@ -15,11 +18,16 @@ export default function VoiceRecording(){
         setIsRecording(true);
     };
 
-    // stops recording 
+    // Stops recording 
     const stopRecording = async() => {
-        // the recording will be available on  
         await audioRecorder.stop();
         setIsRecording(false);
+
+        // saves uri locally (destination of audio archive)
+        const uri = audioRecorder.uri;  
+        setVoiceRecordingUri(uri);  
+        console.log("Audio saved on: ", uri);
+
     };
 
     useEffect(() => {
@@ -32,14 +40,46 @@ export default function VoiceRecording(){
         })();
     }, []);
 
+    // Plays the recording audio
+        const audioSource = voiceRecordingUri;
+        const player = useAudioPlayer(audioSource);
+
+        const playRecording = async() => {
+            if (!voiceRecordingUri) return;
+            await player.replace({ uri: voiceRecordingUri });
+            await player.play;
+            setIsPlaying(true);
+
+        };
+
+        // Pauses the recording
+        const pausePlayRecording = async() => {
+            await player.pause();
+            setIsPlaying(false);
+        };
+
+        /*
+        // Stores audio
+        onsubmit = async() => {
+            this.setState({ token: 'abc123' })
+            AsyncStorage.
+        }
+        */
+
 
     return (
-        <View style={{backgroundColor: 'lightgray'}} className="items-center w-full rounded-lg p-3" >
+        <View className="items-center w-full rounded-lg p-3" >
             <View style={styles.container}>
                 <Button 
                 title={isRecording ? 'Stop Recording' : 'Start Recording'}
                 onPress={isRecording ? stopRecording : record}
                 />
+            </View>
+            <View style={styles.container}>
+               <Button 
+                title={isPlaying ? 'Pause audio' : 'Play audio'}
+                onPress={() => isPlaying ? pausePlayRecording : (!isRecording ? player.play() : "null") }
+                /> 
             </View>
         </View>
     );
@@ -47,9 +87,10 @@ export default function VoiceRecording(){
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         padding: 10,
+        borderRadius: 6,
+        margin: 6,
     }
 });
